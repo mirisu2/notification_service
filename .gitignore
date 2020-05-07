@@ -1,13 +1,5 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
-
-
-# Flask stuff:
+.idea/
 instance/
-
-# Environments
 venv/
-
-# Logs
 logs/
-
