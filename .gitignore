@@ -1,6 +1,5 @@
 __pycache__/
 .idea/
-instance/
-!instance/*.example
+instance/*.cfg
 venv/
-logs/
+logs/*.log
