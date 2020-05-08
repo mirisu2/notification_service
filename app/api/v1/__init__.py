@@ -17,7 +17,7 @@ def check_api_header():
         return jsonify({'error': 'Access denied'}), 403
 
 
-@bp.route('/telegram', methods=['GET'])
+@bp.route('/telegram', methods=['GET', 'POST'])
 def input_search():
     data = request.get_json()
     id = data.get('id')
