@@ -11,6 +11,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('production.cfg', silent=True)
 if not app.config.get('SECRET_KEY'):
     app.config['DEBUG'] = environ.get('DEBUG')
+    app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['ENV'] = environ.get('ENV')
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
     app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
