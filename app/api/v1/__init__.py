@@ -36,7 +36,7 @@ def input_search():
     except requests.exceptions.ConnectionError as e:
         return jsonify(
             status=False,
-            error_text=e
+            error_text=str(e)
         )
 
 
