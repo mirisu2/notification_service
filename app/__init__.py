@@ -4,10 +4,28 @@ import logging.handlers as handlers
 import logging
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from os import environ
 
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('production.cfg', silent=True)
+if not app.config.get('SECRET_KEY'):
+    app.config['DEBUG'] = environ.get('DEBUG')
+    app.config['ENV'] = environ.get('ENV')
+    app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
+    app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
+    app.config['MAIL_USE_TLS'] = environ.get('MAIL_USE_TLS')
+    app.config['MAIL_USE_SSL'] = environ.get('MAIL_USE_SSL')
+    app.config['MAIL_DEBUG'] = environ.get('MAIL_DEBUG')
+    app.config['MAIL_USERNAME'] = environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = environ.get('MAIL_PASSWORD')
+    app.config['MAIL_DEFAULT_SENDER'] = environ.get('MAIL_DEFAULT_SENDER')
+    app.config['MAIL_MAX_EMAILS'] = environ.get('MAIL_MAX_EMAILS')
+    app.config['MAIL_ASCII_ATTACHMENTS'] = environ.get('MAIL_ASCII_ATTACHMENTS')
+    app.config['MAIL_SUPPRESS_SEND'] = environ.get('MAIL_SUPPRESS_SEND')
+    app.config['TELEGRAM_API_TOKEN'] = environ.get('TELEGRAM_API_TOKEN')
+    app.config['ALLOWED_TOKENS'] = environ.get('ALLOWED_TOKENS')
+
 mail = Mail(app)
 
 ch_file = handlers.RotatingFileHandler('logs/app.log', maxBytes=1000000, backupCount=5)
