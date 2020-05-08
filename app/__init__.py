@@ -59,6 +59,5 @@ app.register_blueprint(v1.bp)
 @app.route("/ping")
 @limiter.limit("1 per minute", override_defaults=False)
 def ping():
-    return str(app.config)
-    # return "PONG"
+    return "PONG"
 
