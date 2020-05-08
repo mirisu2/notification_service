@@ -3,6 +3,4 @@ __pycache__/
 instance/*.cfg
 venv/
 logs/*.log
-.dockerignore
-Dockerfile
 *.txt
