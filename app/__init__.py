@@ -30,9 +30,8 @@ if not app.config.get('SECRET_KEY'):
 mail = Mail(app)
 
 logger = logging.getLogger('__notify__')
-logger.setLevel(logging.INFO)
 ch_console = logging.StreamHandler()
-ch_console.setLevel(logging.INFO)
+ch_console.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 ch_console.setFormatter(formatter)
 logger.addHandler(ch_console)
