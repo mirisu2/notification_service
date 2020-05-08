@@ -29,9 +29,13 @@ if not app.config.get('SECRET_KEY'):
 
 mail = Mail(app)
 
-ch_file = handlers.RotatingFileHandler('logs/app.log', maxBytes=1000000, backupCount=5)
+logger = logging.getLogger('__notify__')
+logger.setLevel(logging.INFO)
+ch_console = logging.StreamHandler()
+ch_console.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-ch_file.setFormatter(formatter)
+ch_console.setFormatter(formatter)
+logger.addHandler(ch_console)
 
 limiter = Limiter(
     app,
@@ -40,7 +44,7 @@ limiter = Limiter(
     headers_enabled=True,
     strategy='fixed-window-elastic-expiry'
 )
-limiter.logger.addHandler(ch_file)
+limiter.logger.addHandler(ch_console)
 
 
 @limiter.request_filter
