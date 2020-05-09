@@ -13,15 +13,15 @@ GET
 ### Header:
 ```
 {
-'Content-Type: application/json',
-'X-NOTIFY-API-Key: 9dc82trbbca'
+  'Content-Type: application/json',
+  'X-NOTIFY-API-Key: 9dc82trbbca'
 }
 ```
 ### Data:
 ```
 {
-'id': '45948587',
-'text': 'My message'
+  'id': '45948587',
+  'text': 'My message'
 }
 ```  
 ## E-mail notification:
@@ -36,15 +36,15 @@ GET
 ### Header:
 ```
 {
-'Content-Type: application/json',
-'X-NOTIFY-API-Key: 9dc82trbbca'
+  'Content-Type: application/json',
+  'X-NOTIFY-API-Key: 9dc82trbbca'
 }
 ```
 ### Data:
 ```
 {
-'email': 'komy@to.tam',
-'subject': 'my subject',
-'body": 'my message'
+  'email': 'komy@to.tam',
+  'subject': 'my subject',
+  'body": 'my message'
 }
 ```
