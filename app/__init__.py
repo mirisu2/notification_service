@@ -1,11 +1,10 @@
-from flask import Flask, request
-from flask_mail import Mail
-import logging.handlers as handlers
 import logging
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 from os import environ
 
+from flask import Flask, request
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from flask_mail import Mail
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('production.cfg', silent=True)
@@ -52,6 +51,7 @@ def ip_whitelist():
 
 
 from app.api import v1
+
 limiter.limit("5 per second")(v1.bp)
 app.register_blueprint(v1.bp)
 
@@ -60,4 +60,3 @@ app.register_blueprint(v1.bp)
 @limiter.limit("1 per minute", override_defaults=False)
 def ping():
     return "PONG"
-
