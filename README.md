@@ -2,22 +2,22 @@
 Notification service
 
 ## Telegram notification:
-### URL:
+##### URL:
 ```
 my.domain/api/v1/telegram
 ```
-### Method: 
+##### Method: 
 ```
 GET
 ```
-### Header:
+##### Header:
 ```
 {
   'Content-Type: application/json',
   'X-NOTIFY-API-Key: 9dc82trbbca'
 }
 ```
-### Data:
+##### Data:
 ```
 {
   'id': '45948587',
@@ -25,22 +25,22 @@ GET
 }
 ```  
 ## E-mail notification:
-### URL:
+##### URL:
 ```
 my.domain/api/v1/email
 ```
-### Method: 
+##### Method: 
 ```
 GET
 ```
-### Header:
+##### Header:
 ```
 {
   'Content-Type: application/json',
   'X-NOTIFY-API-Key: 9dc82trbbca'
 }
 ```
-### Data:
+##### Data:
 ```
 {
   'email': 'komy@to.tam',
