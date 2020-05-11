@@ -1,5 +1,6 @@
 from flask import jsonify
 from flask_mail import Message, smtplib
+
 from app import mail
 
 

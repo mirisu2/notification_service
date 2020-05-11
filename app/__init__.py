@@ -1,16 +1,16 @@
-from flask import Flask, request
-from flask_mail import Mail
-import logging.handlers as handlers
 import logging
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 from os import environ
 
+from flask import Flask, request
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from flask_mail import Mail
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('production.cfg', silent=True)
 if not app.config.get('SECRET_KEY'):
     app.config['DEBUG'] = environ.get('DEBUG')
+    app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['ENV'] = environ.get('ENV')
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
     app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
@@ -28,9 +28,12 @@ if not app.config.get('SECRET_KEY'):
 
 mail = Mail(app)
 
-ch_file = handlers.RotatingFileHandler('logs/app.log', maxBytes=1000000, backupCount=5)
+logger = logging.getLogger('__notify__')
+ch_console = logging.StreamHandler()
+ch_console.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-ch_file.setFormatter(formatter)
+ch_console.setFormatter(formatter)
+logger.addHandler(ch_console)
 
 limiter = Limiter(
     app,
@@ -39,7 +42,7 @@ limiter = Limiter(
     headers_enabled=True,
     strategy='fixed-window-elastic-expiry'
 )
-limiter.logger.addHandler(ch_file)
+limiter.logger.addHandler(ch_console)
 
 
 @limiter.request_filter
@@ -48,6 +51,7 @@ def ip_whitelist():
 
 
 from app.api import v1
+
 limiter.limit("5 per second")(v1.bp)
 app.register_blueprint(v1.bp)
 
