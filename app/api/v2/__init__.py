@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from telebot import apihelper
-apihelper.proxy = {'https': 'socks5://telegram.vpn.net:55555'}
+apihelper.proxy = {'https': 'socks5://80.254.20.165'}
 from app import app
 from app import bot
 
