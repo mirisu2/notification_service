@@ -21,4 +21,5 @@ def send_message_on_telegram():
     data = request.get_json(force=True)
     chat_id = data.get('id')
     text = data.get('text')
-    bot.send_message(chat_id, text)
+    r = bot.send_message(chat_id, text)
+    return str(r)
