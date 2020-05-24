@@ -18,7 +18,7 @@ def check_api_header():
 
 @bp.route('/telegram', methods=['POST'])
 def send_message_on_telegram():
-    data = request.get_json(forse=True)
+    data = request.get_json(force=True)
     print(data)
     # data = request.get_json()
     # chat_id = data.get('id')
