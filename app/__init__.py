@@ -29,7 +29,7 @@ if not app.config.get('SECRET_KEY'):
     app.config['ALLOWED_TOKENS'] = environ.get('ALLOWED_TOKENS')
 
 mail = Mail(app)
-apihelper.proxy = {'https': 'socks5h://80.254.20.165'}
+apihelper.proxy = {'https': 'socks5h://80.254.20.165:443'}
 bot = telebot.TeleBot(app.config['TELEGRAM_API_TOKEN'])
 
 logger = logging.getLogger('__notify__')
