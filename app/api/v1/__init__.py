@@ -26,9 +26,13 @@ def input_search():
     text = data.get('text')
     url = 'https://api.telegram.org/bot{}/sendMessage'.format(app.config.get('TELEGRAM_API_TOKEN'))
     try:
-        s = requests.session()
-        s.headers.update({"Content-Type": "application/json", "User-agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/75.0.3770.142 Safari/537.36"})
-        res = s.post(url, data=json.dumps({"chat_id": id, "text": text}))
+        res = requests.post(url,
+                            data=json.dumps({"chat_id": id, "text": text}),
+                            headers={
+                                "Content-Type": "application/json",
+                                "User-agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/75.0.3770.142 Safari/537.36"
+                            }
+                            )
         return app_func.make_response_telegram(res.json())
 
     except requests.exceptions.ConnectionError as e:
