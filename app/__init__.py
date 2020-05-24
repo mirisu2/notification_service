@@ -1,6 +1,6 @@
 import logging
 from os import environ
-
+import telebot
 from flask import Flask, request
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -27,6 +27,7 @@ if not app.config.get('SECRET_KEY'):
     app.config['ALLOWED_TOKENS'] = environ.get('ALLOWED_TOKENS')
 
 mail = Mail(app)
+bot = telebot.TeleBot("TELEGRAM_API_TOKEN")
 
 logger = logging.getLogger('__notify__')
 ch_console = logging.StreamHandler()
@@ -51,9 +52,12 @@ def ip_whitelist():
 
 
 from app.api import v1
+from app.api import v2
 
 limiter.limit("5 per second")(v1.bp)
+limiter.limit("5 per second")(v2.bp)
 app.register_blueprint(v1.bp)
+app.register_blueprint(v2.bp)
 
 
 @app.route("/ping")

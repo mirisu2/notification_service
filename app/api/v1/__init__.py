@@ -20,7 +20,7 @@ def check_api_header():
 
 
 @bp.route('/telegram', methods=['GET', 'POST'])
-def input_search():
+def send_message_on_telegram():
     data = request.get_json()
     id = data.get('id')
     text = data.get('text')
@@ -43,6 +43,6 @@ def input_search():
 
 
 @bp.route('/email', methods=['GET'])
-def get_last_calls():
+def send_email():
     data = request.get_json()
     return app_func.send_mail_and_make_response(data)
