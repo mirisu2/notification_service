@@ -51,13 +51,11 @@ def ip_whitelist():
     return request.remote_addr == "127.0.0.1"
 
 
-from app.api import v1
-from app.api import v2
+from app.api import v1, v2
+
 
 limiter.limit("5 per second")(v1.bp)
-limiter.limit("5 per second")(v2.bp)
-app.register_blueprint(v1.bp)
-app.register_blueprint(v2.bp)
+app.register_blueprint(v1.bp, v2.bp)
 
 
 @app.route("/ping")
