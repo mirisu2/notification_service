@@ -28,7 +28,7 @@ if not app.config.get('SECRET_KEY'):
     app.config['ALLOWED_TOKENS'] = environ.get('ALLOWED_TOKENS')
 
 mail = Mail(app)
-bot = telebot.TeleBot("TELEGRAM_API_TOKEN")
+bot = telebot.TeleBot(app.config['TELEGRAM_API_TOKEN'])
 
 logger = logging.getLogger('__notify__')
 ch_console = logging.StreamHandler()
