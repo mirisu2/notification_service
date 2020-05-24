@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify
 from app import app
 from app import bot
 
-bp = Blueprint('api', __name__, url_prefix='/api/v2')
+bp = Blueprint('v2', __name__, url_prefix='/api/v2')
 
 
 @bp.before_request

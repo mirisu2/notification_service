@@ -6,7 +6,7 @@ from flask import Blueprint, request, jsonify
 from app import app
 from app import app_func
 
-bp = Blueprint('api', __name__, url_prefix='/api/v1')
+bp = Blueprint('v1', __name__, url_prefix='/api/v1')
 
 
 @bp.before_request

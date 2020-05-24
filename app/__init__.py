@@ -55,7 +55,9 @@ from app.api import v1, v2
 
 
 limiter.limit("5 per second")(v1.bp)
-app.register_blueprint(v1.bp, v2.bp)
+limiter.limit("5 per second")(v2.bp)
+app.register_blueprint(v1.bp)
+app.register_blueprint(v2.bp)
 
 
 @app.route("/ping")
