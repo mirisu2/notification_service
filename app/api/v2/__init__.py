@@ -16,9 +16,12 @@ def check_api_header():
         return jsonify({'error': 'Access denied'}), 403
 
 
-@bp.route('/telegram', methods=['GET', 'POST'])
+@bp.route('/telegram', methods=['POST'])
 def send_message_on_telegram():
-    data = request.get_json()
-    chat_id = data.get('id')
-    text = data.get('text')
-    bot.send_message(chat_id, text)
+    data = request.get_json(forse=True)
+    print(data)
+    # data = request.get_json()
+    # chat_id = data.get('id')
+    # text = data.get('text')
+    # bot.send_message(chat_id, text)
+    return 'OK'
