@@ -7,7 +7,7 @@ docker run --env-file configs/notify_service_env.list -d --restart=always --secu
 ## Telegram notification:
 ##### URL:
 ```
-my.domain/api/v1/telegram
+my.domain/api/v2/telegram
 ```
 ##### Method: 
 ```
