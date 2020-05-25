@@ -67,7 +67,7 @@ pipeline {
    post { 
         success { 
             sleep 15
-            sh "curl --location --request GET 'http://notify.h744.host/api/v2/telegram' \
+            sh "curl --location --request POST 'http://notify.h744.host/api/v2/telegram' \
                 --header 'Content-Type: application/json' \
                 --header 'X-NOTIFY-API-Key: ${env.X_NOTIFY_API_Key}' \
                 --data-raw '{\"id\": \"${env.TELEGRAM_ID}\",\"text\":\"New container **notify** was built and started\"}'"
