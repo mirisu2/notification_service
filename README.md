@@ -2,7 +2,8 @@
 ```
 docker build -t notify .
 docker run --env-file configs/notify_service_env.list -d --restart=always --security-opt apparmor=docker-default \
---cpus=1 --memory=1g --oom-kill-disable --name notify -p 5005:80 notify
+--cpus=1 --memory=1g --oom-kill-disable --log-driver syslog --log-opt syslog-address=udp://192.168.198.253:514 \
+--log-opt tag=notify_service --name notify -p 5005:80 notify
 ```
 ## Telegram notification:
 ##### URL:
