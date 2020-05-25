@@ -11,7 +11,7 @@ my.domain/api/v2/telegram
 ```
 ##### Method: 
 ```
-GET
+POST
 ```
 ##### Header:
 ```
