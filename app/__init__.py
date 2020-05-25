@@ -7,6 +7,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_mail import Mail
 from telebot import apihelper
+from pyrogram import Client
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('production.cfg', silent=True)
@@ -27,10 +28,13 @@ if not app.config.get('SECRET_KEY'):
     app.config['MAIL_SUPPRESS_SEND'] = environ.get('MAIL_SUPPRESS_SEND')
     app.config['TELEGRAM_API_TOKEN'] = environ.get('TELEGRAM_API_TOKEN')
     app.config['ALLOWED_TOKENS'] = environ.get('ALLOWED_TOKENS')
+    app.config['API_ID'] = environ.get('API_ID')
+    app.config['API_HASH'] = environ.get('API_HASH')
 
 mail = Mail(app)
 apihelper.proxy = {'https': 'socks5h://80.254.20.165:443'}
 bot = telebot.TeleBot(app.config['TELEGRAM_API_TOKEN'])
+bot_app = Client("notify_bot", app.config['API_ID'], app.config['API_HASH'], bot_token=app.config['TELEGRAM_API_TOKEN'])
 
 logger = logging.getLogger('__notify__')
 ch_console = logging.StreamHandler()
