@@ -1,6 +1,9 @@
 # notification_service
-docker run --env-file /path/to/configs/notify_service_env.list -d --restart=always --name notify -p 5005:80 arty234e/notify
-
+```
+docker build -t notify .
+docker run --env-file configs/notify_service_env.list -d --restart=always --security-opt apparmor=docker-default \
+--cpus=1 --memory=1g --oom-kill-disable --name notify -p 5005:80 notify
+```
 ## Telegram notification:
 ##### URL:
 ```
