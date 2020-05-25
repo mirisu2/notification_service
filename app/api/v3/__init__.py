@@ -24,4 +24,4 @@ def send_message_on_telegram():
     text = data.get('text')
     with bot_app:
         r = bot_app.send_message(chat_id, text)
-    return str(r)
+    return str(r['outgoing'])
