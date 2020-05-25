@@ -1,12 +1,10 @@
 import logging
 from os import environ
 
-import telebot
 from flask import Flask, request
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_mail import Mail
-from telebot import apihelper
 from pyrogram import Client
 
 app = Flask(__name__, instance_relative_config=True)
@@ -32,8 +30,7 @@ if not app.config.get('SECRET_KEY'):
     app.config['API_HASH'] = environ.get('API_HASH')
 
 mail = Mail(app)
-apihelper.proxy = {'https': 'socks5h://80.254.20.165:443'}
-bot = telebot.TeleBot(app.config['TELEGRAM_API_TOKEN'])
+
 bot_app = Client("notify_bot", app.config['API_ID'], app.config['API_HASH'], bot_token=app.config['TELEGRAM_API_TOKEN'])
 
 logger = logging.getLogger('__notify__')
@@ -58,16 +55,16 @@ def ip_whitelist():
     return request.remote_addr == "127.0.0.1"
 
 
-from app.api import v1, v2, v3
+from app.api import v1, v2
 
 limiter.limit("5 per second")(v1.bp)
 limiter.limit("5 per second")(v2.bp)
-limiter.limit("5 per second")(v3.bp)
+
 app.register_blueprint(v1.bp)
 app.register_blueprint(v2.bp)
-app.register_blueprint(v3.bp)
+
 
 @app.route("/ping")
-@limiter.limit("1 per minute", override_defaults=False)
+@limiter.limit("2 per minute", override_defaults=False)
 def ping():
     return "PONG"

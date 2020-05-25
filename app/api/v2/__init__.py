@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from app import app
-from app import bot
+from app import bot_app
 
 bp = Blueprint('v2', __name__, url_prefix='/api/v2')
 
@@ -19,7 +19,8 @@ def check_api_header():
 @bp.route('/telegram', methods=['POST'])
 def send_message_on_telegram():
     data = request.get_json(force=True)
-    chat_id = data.get('id')
+    chat_id = int(data.get('id'))
     text = data.get('text')
-    r = bot.send_message(chat_id, text)
-    return str(r)
+    with bot_app:
+        r = bot_app.send_message(chat_id, text)
+    return str(r['outgoing'])
