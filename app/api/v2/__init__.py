@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-
 from app import app
 from app import bot_app
 
